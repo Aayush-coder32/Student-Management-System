@@ -6,4 +6,3 @@ export default function ProtectedRoute() {
   if (loading) return <div className="center-page"><div className="spinner" /></div>;
   return user ? <Outlet /> : <Navigate to="/login" replace />;
 }
-

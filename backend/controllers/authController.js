@@ -1,6 +1,16 @@
 import User from '../models/User.js';
 import { issueToken, cookieOptions } from '../utils/auth.js';
 
+export async function register(req, res) {
+  const { name, email, password } = req.body;
+  const existingUser = await User.findOne({ email });
+  if (existingUser) return res.status(409).json({ message: 'An account with this email already exists' });
+  const user = await User.create({ name, email, password, role: 'admin' });
+  res.status(201).cookie('token', issueToken(user), cookieOptions()).json({
+    user: { id: user._id, name: user.name, email: user.email, role: user.role }
+  });
+}
+
 export async function login(req, res) {
   const user = await User.findOne({ email: req.body.email }).select('+password');
   if (!user || !(await user.comparePassword(req.body.password))) return res.status(401).json({ message: 'Invalid email or password' });
@@ -14,4 +24,3 @@ export function logout(req, res) {
 export function me(req, res) {
   res.json({ user: req.user });
 }
-

@@ -2,6 +2,11 @@ import { z } from 'zod';
 
 const date = z.coerce.date();
 export const loginSchema = z.object({ email: z.string().email(), password: z.string().min(8) });
+export const registerSchema = z.object({
+  name: z.string().min(2).max(120),
+  email: z.string().email(),
+  password: z.string().min(8)
+});
 export const studentSchema = z.object({
   studentId: z.string().min(2).max(30),
   fullName: z.string().min(2).max(120),
@@ -20,4 +25,3 @@ export const studentSchema = z.object({
 });
 export const attendanceSchema = z.object({ student: z.string().length(24), date, status: z.enum(['Present', 'Absent', 'Late']) });
 export const resultSchema = z.object({ student: z.string().length(24), subject: z.string().min(1), exam: z.string().min(1), marks: z.coerce.number().min(0), maxMarks: z.coerce.number().positive() });
-

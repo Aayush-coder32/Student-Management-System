@@ -9,8 +9,8 @@ export function AuthProvider({ children }) {
     api.get('/auth/me').then(({ data }) => setUser(data.user)).catch(() => {}).finally(() => setLoading(false));
   }, []);
   const login = async (credentials) => { const { data } = await api.post('/auth/login', credentials); setUser(data.user); };
+  const register = async (credentials) => { const { data } = await api.post('/auth/register', credentials); setUser(data.user); };
   const logout = async () => { await api.post('/auth/logout'); setUser(null); };
-  return <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, loading, login, register, logout }}>{children}</AuthContext.Provider>;
 }
 export const useAuth = () => useContext(AuthContext);
-
