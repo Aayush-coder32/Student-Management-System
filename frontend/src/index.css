@@ -98,3 +98,24 @@
 .portal-value-copy h3{margin-top:13px}
 @media(max-width:800px){.portal-main{justify-content:center}.portal-value-grid article>img{height:180px}}
 
+
+/* Help and contact forms */
+.portal-support-section{padding:76px max(26px,calc((100vw - 1050px)/2));background:#f6f8f5;color:#27372a}
+.portal-support-intro{text-align:center;max-width:590px;margin:0 auto 34px}
+.portal-support-intro>span{font-size:10px;letter-spacing:2px;font-weight:800;color:#59815c}
+.portal-support-intro h2{font:500 clamp(29px,3.5vw,43px)/1.15 Georgia,serif;margin:12px 0}
+.portal-support-intro p{font-size:13px;color:#778277;line-height:1.7;margin:0}
+.portal-support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.portal-support-form{background:#fff;border:1px solid #e4eae2;border-radius:14px;padding:25px;display:grid;gap:14px;box-shadow:0 7px 24px #19331d0a}
+.portal-form-heading{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.portal-form-heading>span{width:42px;height:42px;display:grid;place-items:center;border-radius:11px;background:#eaf2e9;color:#376643}
+.portal-form-heading h3{font-size:16px;margin:0 0 4px;color:#304b35}
+.portal-form-heading p{font-size:11px;color:#818b82;margin:0}
+.portal-support-form>label{display:grid;gap:6px;color:#566459;font-size:11px;font-weight:600}
+.portal-support-form input,.portal-support-form textarea{width:100%;border:1px solid #dce4dc;border-radius:7px;padding:10px 11px;background:#fbfcfb;color:#26352a;font:12px 'DM Sans',sans-serif;outline:none}
+.portal-support-form input:focus,.portal-support-form textarea:focus{border-color:#56815b;box-shadow:0 0 0 3px #39734e14}
+.portal-support-form textarea{resize:vertical;min-height:90px}
+.portal-support-form>button{justify-self:start;display:inline-flex;align-items:center;gap:8px;border:0;border-radius:7px;background:#214d2b;color:#fff;padding:11px 15px;font-size:11px;font-weight:700}
+.portal-support-form>button:disabled{opacity:.65;cursor:wait}
+@media(max-width:700px){.portal-support-section{padding:55px 18px}.portal-support-grid{grid-template-columns:1fr;gap:15px}.portal-support-form{padding:20px}}
+
