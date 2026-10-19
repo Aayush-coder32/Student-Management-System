@@ -13,7 +13,13 @@ export default function Login({ mode = 'login', portal = false }) {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [busy, setBusy] = useState(false);
   const [oauthProviders, setOauthProviders] = useState({});
-  useEffect(() => { api.get('/auth/oauth/providers').then(({ data }) => setOauthProviders(data.providers || {})).catch(() => setOauthProviders({})); }, []);
+  useEffect(() => {
+    api.get('/auth/oauth/providers').then(({ data }) => setOauthProviders(data.providers || {})).catch(() => setOauthProviders({}));
+    if (new URLSearchParams(window.location.search).has('oauth_error')) {
+      toast.error('Social sign-in failed or was cancelled. Check provider settings and try again.');
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
   const oauthHref = (provider) => `${api.defaults.baseURL}/auth/oauth/${provider}`;
   const oauthButton = (provider, label, icon) => oauthProviders[provider]
     ? <a href={oauthHref(provider)} key={provider} className="oauth-provider">{icon}<span>{label}</span></a>

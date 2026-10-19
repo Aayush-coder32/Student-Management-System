@@ -79,7 +79,7 @@ async function getIdentity(provider, tokens, nonce, clientId) {
     ]);
     const primary = emails.find((item) => item.primary && item.verified);
     if (!profile.id || !primary?.email) throw new Error('GitHub must provide a verified primary email for account sign-in.');
-    return { id: String(profile.id), email: primary.email.toLowerCase(), name: profile.name || profile.login };
+    return { id: String(profile.id), email: primary.email.toLowerCase(), emailVerified: true, name: profile.name || profile.login };
   }
 
   if (!tokens.id_token) throw new Error('The identity provider did not return an ID token.');
@@ -107,10 +107,10 @@ async function getIdentity(provider, tokens, nonce, clientId) {
   const signingInput = Buffer.from(`${parts[0]}.${parts[1]}`);
   if (!verifySignature('RSA-SHA256', signingInput, publicKey, Buffer.from(parts[2], 'base64url'))) throw new Error('The identity token signature is invalid.');
   const expectedIssuers = Array.isArray(issuer) ? issuer : [issuer];
-  if (!expectedIssuers.includes(untrusted.iss) || untrusted.aud !== clientId || untrusted.nonce !== nonce || untrusted.email_verified === false || !untrusted.exp || untrusted.exp <= Date.now() / 1000) throw new Error('The identity token did not pass issuer, audience, expiry, nonce, or email checks.');
+  if (!expectedIssuers.includes(untrusted.iss) || untrusted.aud !== clientId || untrusted.nonce !== nonce || untrusted.email_verified === false || (provider === 'google' && untrusted.email_verified !== true) || !untrusted.exp || untrusted.exp <= Date.now() / 1000) throw new Error('The identity token did not pass issuer, audience, expiry, nonce, or email checks.');
   const email = String(untrusted.email || untrusted.preferred_username || '').toLowerCase();
   if (!email || !untrusted.sub) throw new Error('The provider account is missing an email address.');
-  return { id: String(untrusted.sub), email, name: String(untrusted.name || email.split('@')[0]) };
+  return { id: String(untrusted.sub), email, emailVerified: untrusted.email_verified === true, name: String(untrusted.name || email.split('@')[0]) };
 }
 
 async function findOrCreateUser(provider, identity) {
@@ -119,6 +119,7 @@ async function findOrCreateUser(provider, identity) {
   if (user) return user;
   user = await User.findOne({ email: identity.email });
   if (user) {
+    if (!identity.emailVerified) throw new Error('Sign in with this email and password first, then link this provider from a verified account.');
     user.set(providerPath, identity.id);
     await user.save();
     return user;
