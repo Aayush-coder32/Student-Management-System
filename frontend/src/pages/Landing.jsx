@@ -23,7 +23,7 @@ export default function Landing() {
   return <div className="school-portal">
     <header className="portal-header">
       <Link to="/" className="portal-school-brand"><span className="portal-crest"><GraduationCap size={25} /></span><span><strong>EDUTRACK SCHOOL</strong><small>Learning together, growing every day</small></span></Link>
-      <nav><a href="#home">Home</a><a href="#discover">Discover</a><a href="#admissions">Admissions</a><a href="#admissions">Contact Us</a></nav>
+      <nav><a href="#home">Home</a><a href="#discover">Discover</a><Link to="/admissions">Admissions</Link><a href="#admissions">Contact Us</a></nav>
     </header>
     <main className="portal-main" id="home"><div className="portal-shade" /><div className="portal-welcome"><span>WELCOME TO</span><h1>A place to learn,<br />grow and belong.</h1><p>Supporting every student on the journey to a brighter future.</p></div><section className="portal-login-card"><Login portal /></section></main>
     <section className="portal-discover-section" id="discover" aria-label="Discover our school">
