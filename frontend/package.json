@@ -16,7 +16,6 @@
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^7.1.1",
-    "recharts": "^2.15.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -24,4 +23,3 @@
     "vite": "^6.0.7"
   }
 }
-
