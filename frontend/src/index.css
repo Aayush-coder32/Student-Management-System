@@ -156,3 +156,4 @@
 .portal-auth-page .oauth-buttons button{border-radius:20px;border-color:#d6e1d5}
 @media(max-width:420px){.oauth-buttons{gap:6px}.oauth-buttons button{font-size:10px;gap:5px;padding:9px 4px}}
 
+\n.oauth-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}\n.oauth-provider{min-width:0;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 6px;border:1px solid #e3e5e9;border-radius:7px;background:#fff;color:#424957;font-size:11px;font-weight:600;text-decoration:none}\n.oauth-provider:hover:not(:disabled){background:#f8f9fb;border-color:#c9ced6}\n.oauth-provider svg{width:16px;height:16px;flex:none}\n.oauth-provider:disabled{opacity:.5;cursor:not-allowed}\n.portal-auth-page .oauth-provider{border-radius:20px;border-color:#d6e1d5}\n
