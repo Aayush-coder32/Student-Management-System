@@ -25,3 +25,10 @@ export const studentSchema = z.object({
 });
 export const attendanceSchema = z.object({ student: z.string().length(24), date, status: z.enum(['Present', 'Absent', 'Late']) });
 export const resultSchema = z.object({ student: z.string().length(24), subject: z.string().min(1), exam: z.string().min(1), marks: z.coerce.number().min(0), maxMarks: z.coerce.number().positive() });
+export const supportMessageSchema = z.object({
+  type: z.enum(['help', 'contact']),
+  name: z.string().trim().min(2).max(120),
+  email: z.string().trim().email().max(254),
+  subject: z.string().trim().min(3).max(160),
+  message: z.string().trim().min(10).max(3000)
+});
