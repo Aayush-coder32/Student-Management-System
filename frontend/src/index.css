@@ -85,3 +85,16 @@
 @media(max-width:900px){.portal-discover-section{grid-template-columns:1fr;gap:35px;padding-top:70px;padding-bottom:70px}.portal-section-heading{max-width:600px}.portal-value-grid{gap:12px}.portal-admissions-icon{right:5%}}
 @media(max-width:600px){.portal-discover-section{padding:58px 20px}.portal-value-grid{grid-template-columns:1fr}.portal-value-grid article{padding:19px}.portal-value-grid h3{margin:13px 0 6px}.portal-admissions-section{align-items:flex-start;flex-direction:column;padding:40px 22px;gap:22px}.portal-footer{padding:38px 22px 18px}.portal-footer-main{grid-template-columns:1fr 1fr;gap:30px 18px}.portal-footer-brand{grid-column:1/-1}.portal-footer-bottom{display:grid;line-height:1.6}}
 
+
+/* Centered portal sign-in and photo cards */
+.portal-main{justify-content:center;background-image:url('https://webflow-amber-prod.gumlet.io/production-uploads/duy-tran-dinh-IHVg_0XBuKQ-unsplash%20%281%29.jpg');background-position:center 48%}
+.portal-welcome{display:none}
+.portal-main:before{width:100%;clip-path:none;background:#123d2850}
+.portal-login-card{margin:0}
+.portal-value-grid article{padding:0;overflow:hidden}
+.portal-value-grid article>img{display:block;width:100%;height:150px;object-fit:cover}
+.portal-value-copy{padding:18px}
+.portal-value-copy>span{width:39px;height:39px}
+.portal-value-copy h3{margin-top:13px}
+@media(max-width:800px){.portal-main{justify-content:center}.portal-value-grid article>img{height:180px}}
+

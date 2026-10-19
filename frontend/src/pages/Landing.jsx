@@ -12,9 +12,9 @@ export default function Landing() {
     <section className="portal-discover-section" aria-label="About the school">
       <div className="portal-section-heading"><span>OUR SCHOOL</span><h2>A strong foundation<br />for every student.</h2><p>We bring students, families and educators together to make learning purposeful and every day count.</p></div>
       <div className="portal-value-grid">
-        <article><span><BookOpen size={21} /></span><h3>Learning with purpose</h3><p>Build knowledge, curiosity and confidence through a supportive learning community.</p></article>
-        <article><span><HeartHandshake size={21} /></span><h3>Growing together</h3><p>Students are encouraged to discover their strengths and care for one another.</p></article>
-        <article><span><ShieldCheck size={21} /></span><h3>A safe community</h3><p>A welcoming environment helps every learner feel respected, included and ready to thrive.</p></article>
+        <article><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=760&q=85" alt="Students learning together in a classroom" /><div className="portal-value-copy"><span><BookOpen size={21} /></span><h3>Learning with purpose</h3><p>Build knowledge, curiosity and confidence through a supportive learning community.</p></div></article>
+        <article><img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=760&q=85" alt="Students studying together" /><div className="portal-value-copy"><span><HeartHandshake size={21} /></span><h3>Growing together</h3><p>Students are encouraged to discover their strengths and care for one another.</p></div></article>
+        <article><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=760&q=85" alt="Student taking part in a classroom activity" /><div className="portal-value-copy"><span><ShieldCheck size={21} /></span><h3>A safe community</h3><p>A welcoming environment helps every learner feel respected, included and ready to thrive.</p></div></article>
       </div>
     </section>
     <section className="portal-admissions-section" id="admissions"><div><span>ADMISSIONS</span><h2>Your next chapter<br />starts here.</h2><p>Join our school community. Create an account to get started with the student portal.</p></div><Link to="/signup" className="portal-admissions-button">Get started <ArrowRight size={17} /></Link><CalendarDays className="portal-admissions-icon" size={82} /></section>
