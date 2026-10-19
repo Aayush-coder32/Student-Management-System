@@ -1,6 +1,5 @@
-import { randomBytes } from 'node:crypto';
+import { createPublicKey, randomBytes, verify as verifySignature } from 'node:crypto';
 import jwt from 'jsonwebtoken';
-import { createRemoteJWKSet, decodeJwt, jwtVerify } from 'jose';
 import User from '../models/User.js';
 import { cookieOptions, issueToken } from '../utils/auth.js';
 
@@ -84,7 +83,11 @@ async function getIdentity(provider, tokens, nonce, clientId) {
   }
 
   if (!tokens.id_token) throw new Error('The identity provider did not return an ID token.');
-  const untrusted = decodeJwt(tokens.id_token);
+  const parts = tokens.id_token.split('.');
+  if (parts.length !== 3) throw new Error('The identity provider returned a malformed ID token.');
+  const header = JSON.parse(Buffer.from(parts[0], 'base64url').toString('utf8'));
+  const untrusted = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
+  if (header.alg !== 'RS256' || !header.kid) throw new Error('The identity token uses an unsupported signing key.');
   let jwksUrl;
   let issuer;
   if (provider === 'google') {
@@ -95,12 +98,19 @@ async function getIdentity(provider, tokens, nonce, clientId) {
     jwksUrl = `https://login.microsoftonline.com/${tenant()}/discovery/v2.0/keys`;
     issuer = `https://login.microsoftonline.com/${untrusted.tid}/v2.0`;
   }
-  const jwks = createRemoteJWKSet(new URL(jwksUrl));
-  const { payload } = await jwtVerify(tokens.id_token, jwks, { issuer, audience: clientId });
-  if (payload.nonce !== nonce || payload.email_verified === false) throw new Error('The identity token did not pass account verification.');
-  const email = String(payload.email || payload.preferred_username || '').toLowerCase();
-  if (!email || !payload.sub) throw new Error('The provider account is missing a verified email address.');
-  return { id: String(payload.sub), email, name: String(payload.name || email.split('@')[0]) };
+  const jwksResponse = await fetch(jwksUrl);
+  if (!jwksResponse.ok) throw new Error('Could not load the provider signing keys.');
+  const jwks = await jwksResponse.json();
+  const jwk = jwks.keys?.find((item) => item.kid === header.kid && item.use === 'sig');
+  if (!jwk) throw new Error('The identity token signing key was not recognized.');
+  const publicKey = createPublicKey({ key: jwk, format: 'jwk' });
+  const signingInput = Buffer.from(`${parts[0]}.${parts[1]}`);
+  if (!verifySignature('RSA-SHA256', signingInput, publicKey, Buffer.from(parts[2], 'base64url'))) throw new Error('The identity token signature is invalid.');
+  const expectedIssuers = Array.isArray(issuer) ? issuer : [issuer];
+  if (!expectedIssuers.includes(untrusted.iss) || untrusted.aud !== clientId || untrusted.nonce !== nonce || untrusted.email_verified === false || !untrusted.exp || untrusted.exp <= Date.now() / 1000) throw new Error('The identity token did not pass issuer, audience, expiry, nonce, or email checks.');
+  const email = String(untrusted.email || untrusted.preferred_username || '').toLowerCase();
+  if (!email || !untrusted.sub) throw new Error('The provider account is missing an email address.');
+  return { id: String(untrusted.sub), email, name: String(untrusted.name || email.split('@')[0]) };
 }
 
 async function findOrCreateUser(provider, identity) {
