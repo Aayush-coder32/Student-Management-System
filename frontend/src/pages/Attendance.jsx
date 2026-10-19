@@ -1,0 +1,13 @@
+import { useEffect, useState } from 'react';
+import { CalendarDays, Check, X } from 'lucide-react';
+import toast from 'react-hot-toast';
+import api from '../services/api';
+import Loader from '../components/common/Loader';
+export default function Attendance() {
+  const [students, setStudents] = useState([]); const [records, setRecords] = useState({}); const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  useEffect(() => { Promise.all([api.get('/students', { params: { limit: 100, status: 'Active' } }), api.get('/attendance', { params: { date } })]).then(([s, a]) => { setStudents(s.data.students); setRecords(Object.fromEntries(a.data.records.map((r) => [r.student._id, r.status]))); }); }, [date]);
+  const mark = async (student, status) => { try { await api.post('/attendance', { student, date, status }); setRecords({ ...records, [student]: status }); toast.success('Attendance saved'); } catch (error) { toast.error(error.response?.data?.message || 'Could not save attendance'); } };
+  if (!students) return <Loader />;
+  return <><div className="page-heading"><div><div className="eyebrow">DAILY RECORD</div><h1>Attendance</h1><p className="muted">Mark and review attendance for your active students.</p></div><label className="date-control"><CalendarDays size={17} /><input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label></div><section className="panel table-panel"><div className="attendance-summary"><div><strong>{Object.keys(records).length}</strong><span>Marked</span></div><div><strong className="green-text">{Object.values(records).filter((s) => s === 'Present').length}</strong><span>Present</span></div><div><strong className="red-text">{Object.values(records).filter((s) => s === 'Absent').length}</strong><span>Absent</span></div></div><div className="table-scroll"><table><thead><tr><th>Student</th><th>ID</th><th>Course</th><th>Attendance status</th></tr></thead><tbody>{students.map((student) => <tr key={student._id}><td><div className="table-student"><div className="student-avatar">{student.fullName.charAt(0)}</div><strong>{student.fullName}</strong></div></td><td className="mono">{student.studentId}</td><td>{student.course}</td><td><div className="attendance-buttons"><button className={records[student._id] === 'Present' ? 'selected present' : ''} onClick={() => mark(student._id, 'Present')}><Check size={15} /> Present</button><button className={records[student._id] === 'Absent' ? 'selected absent' : ''} onClick={() => mark(student._id, 'Absent')}><X size={15} /> Absent</button></div></td></tr>)}</tbody></table></div></section></>;
+}
+
