@@ -152,11 +152,11 @@ COOKIE_SECURE=false
 
 Vite exposes `VITE_` variables to browser code. Do not put credentials, private keys, or other secrets in frontend environment variables.
 
-## Create the first administrator
+## Create the first administrator:
 
 Administrator creation is available through the local `npm run seed:admin` command. Treat access to the deployed environment and database as privileged: a person who can connect to the database may be able to create or alter accounts. The API also includes a registration route; assess whether that route should be available in your deployment before exposing the service publicly.
 
-## API overview
+## API overview:
 
 All routes are under `/api`. Except for health, authentication, and support submission, the application routes require authentication. Write operations apply role checks as implemented by the backend.
 
