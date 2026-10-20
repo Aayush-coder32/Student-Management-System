@@ -5,8 +5,11 @@ import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 
-export default function Login({ mode = 'login', portal = false }) {
+export default function Login({ mode = 'login', portal = false, accountType }) {
   const isSignup = mode === 'signup';
+  const roleLabel = accountType === 'teacher' ? 'Faculty' : 'Admin';
+  const signInPath = accountType ? `/${accountType === 'teacher' ? 'faculty' : 'admin'}/sign-in` : '/login';
+  const signUpPath = accountType ? `/${accountType === 'teacher' ? 'faculty' : 'admin'}/sign-up` : '/signup';
   const { user, login, register } = useAuth();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -24,15 +27,15 @@ export default function Login({ mode = 'login', portal = false }) {
   const oauthButton = (provider, label, icon) => oauthProviders[provider]
     ? <a href={oauthHref(provider)} key={provider} className="oauth-provider">{icon}<span>{label}</span></a>
     : <button type="button" key={provider} className="oauth-provider" disabled title={`${label} sign-in is not configured on the server`}>{icon}<span>{label}</span></button>;
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user && !accountType) return <Navigate to="/dashboard" replace />;
   const update = (key) => (event) => setForm({ ...form, [key]: event.target.value });
   const submit = async (event) => {
     event.preventDefault();
     if (isSignup && form.password !== form.confirmPassword) { toast.error('Passwords do not match'); return; }
     setBusy(true);
     try {
-      if (isSignup) { await register({ name: form.name, email: form.email, password: form.password }); toast.success('Account created! Welcome to EduTrack.'); }
-      else { await login({ email: form.email, password: form.password }); toast.success('Welcome back!'); }
+      if (isSignup) { await register({ name: form.name, email: form.email, password: form.password, ...(accountType ? { role: accountType } : {}) }); toast.success(`Account created! Welcome, ${roleLabel}.`); }
+      else { await login({ email: form.email, password: form.password, ...(accountType ? { role: accountType } : {}) }); toast.success('Welcome back!'); }
       navigate('/dashboard');
     } catch (error) { toast.error(error.response?.data?.message || `Unable to ${isSignup ? 'create account' : 'sign in'}`); } finally { setBusy(false); }
   };
