@@ -31,7 +31,7 @@ An administrative student management platform built with the MERN stack. EduTrac
 - Responsive React interface, built with Vite.
 - API hardening with Helmet, credentialed CORS, centralized error handling, and login rate limiting.
 
-## Technology
+## Technology :
 
 | Area | Stack |
 | --- | --- |
