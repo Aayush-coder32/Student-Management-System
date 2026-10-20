@@ -40,7 +40,7 @@ An administrative student management platform built with the MERN stack. EduTrac
 | Database | MongoDB |
 | Authentication | JSON Web Token, bcryptjs, HTTP-only cookies |
 
-## Architecture
+## Architecture :
 
 ```text
 frontend/  React single-page application (Vite)
