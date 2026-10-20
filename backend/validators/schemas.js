@@ -8,7 +8,7 @@ export const registerSchema = z.object({
   password: z.string().min(8)
 });
 export const studentSchema = z.object({
-  studentId: z.string().min(2).max(30),
+  studentId: z.string().min(2).max(30).regex(/^[A-Za-z0-9 .$\/+%-]+$/, 'Student ID must use characters supported by the Code 39 barcode'),
   fullName: z.string().min(2).max(120),
   email: z.string().email(),
   phone: z.string().min(7).max(20),

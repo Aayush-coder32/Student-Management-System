@@ -45,9 +45,9 @@ export default function StudentForm() {
     try {
       const payload = { ...form };
       if (edit && !payload.aadhaarNumber) delete payload.aadhaarNumber;
-      await (edit ? api.put(`/students/${id}`, payload) : api.post('/students', payload));
+      const { data } = await (edit ? api.put(`/students/${id}`, payload) : api.post('/students', payload));
       toast.success(edit ? 'Student updated' : 'Student added');
-      navigate('/students');
+      navigate(edit ? '/students' : `/students/${data.student._id}/card`);
     } catch (error) {
       const errors = error.response?.data?.errors;
       toast.error(errors?.aadhaarNumber?.[0] || error.response?.data?.message || 'Please check the form');
