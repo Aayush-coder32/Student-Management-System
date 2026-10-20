@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CalendarDays, Check, X, Camera, RotateCcw } from 'lucide-react';
+import { CalendarDays, X, Camera, RotateCcw, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../services/api';
 import Loader from '../components/common/Loader';
@@ -81,7 +81,7 @@ export default function Attendance() {
   };
 
   if (!students) return <Loader />;
-  if (registeredCount === 0) return <section className="panel attendance-gate"><div className="attendance-gate-icon"><UsersIcon /></div><h1>Register a student first</h1><p className="muted">Attendance unlocks after the first student profile is registered.</p><Link className="primary-button" to="/students/new">Register student</Link></section>;
+  if (registeredCount === 0) return <section className="panel attendance-gate"><div className="attendance-gate-icon"><Users size={24} /></div><h1>Register a student first</h1><p className="muted">Attendance unlocks after the first student profile is registered.</p><Link className="primary-button" to="/students/new">Register student</Link></section>;
 
   return <>
     <div className="page-heading"><div><div className="eyebrow">DAILY RECORD</div><h1>Attendance</h1><p className="muted">Capture a live verification photo before marking a student present.</p></div><label className="date-control"><CalendarDays size={17} /><input type="date" value={date} onChange={(event) => setDate(event.target.value)} /></label></div>
@@ -91,8 +91,4 @@ export default function Attendance() {
     </section>}
     {selectedStudent && <div className="camera-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeCamera(); }}><section className="camera-dialog" role="dialog" aria-modal="true" aria-labelledby="camera-title"><button type="button" className="camera-close" onClick={closeCamera} aria-label="Close">×</button><div className="eyebrow">LIVE VERIFICATION</div><h2 id="camera-title">Confirm {selectedStudent.fullName}</h2><p className="muted">Capture a current photo to mark this student present.</p>{photo ? <img className="camera-preview" src={photo} alt="Attendance verification capture" /> : <div className="camera-frame">{cameraError ? <p role="alert">{cameraError}</p> : <video ref={videoRef} autoPlay playsInline muted />}</div>}<canvas ref={canvasRef} hidden /><div className="camera-actions">{photo ? <><button className="secondary-button" onClick={() => setPhoto('')}><RotateCcw size={15} /> Retake</button><button className="primary-button" disabled={saving} onClick={async () => { setSaving(true); await mark(selectedStudent._id, 'Present', photo); setSaving(false); }}>{saving ? 'Saving...' : 'Confirm present'}</button></> : <button className="primary-button" disabled={Boolean(cameraError)} onClick={capturePhoto}><Camera size={16} /> Capture photo</button>}</div></section></div>}
   </>;
-}
-
-function UsersIcon() {
-  return <span aria-hidden="true">👥</span>;
 }
