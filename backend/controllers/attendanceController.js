@@ -8,8 +8,13 @@ export async function listAttendance(req, res) {
     filter.date = { $gte: start, $lt: end };
   }
   if (req.query.student) filter.student = req.query.student;
-  const records = await Attendance.find(filter).select('-verificationPhoto').populate('student', 'fullName studentId course').sort({ date: -1 });
-  res.json({ records });
+  const records = await Attendance.find(filter).select('+verificationPhoto').populate('student', 'fullName studentId course').sort({ date: -1 });
+  res.json({ records: records.map((record) => {
+    const safeRecord = record.toObject();
+    safeRecord.verificationCaptured = Boolean(safeRecord.verificationPhoto);
+    delete safeRecord.verificationPhoto;
+    return safeRecord;
+  }) });
 }
 
 export async function upsertAttendance(req, res) {
