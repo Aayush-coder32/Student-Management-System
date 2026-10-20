@@ -11,26 +11,30 @@ export async function listStudents(req, res) {
   const pageNumber = Math.max(Number(page), 1);
   const pageSize = Math.min(Math.max(Number(limit), 1), 100);
   const [students, total] = await Promise.all([
-    Student.find(filter).sort({ [safeSort]: order === 'asc' ? 1 : -1 }).skip((pageNumber - 1) * pageSize).limit(pageSize),
+    Student.find(filter).select('-aadhaarNumber').sort({ [safeSort]: order === 'asc' ? 1 : -1 }).skip((pageNumber - 1) * pageSize).limit(pageSize),
     Student.countDocuments(filter)
   ]);
   res.json({ students, pagination: { page: pageNumber, limit: pageSize, total, pages: Math.ceil(total / pageSize) } });
 }
 
 export async function getStudent(req, res) {
-  const student = await Student.findById(req.params.id);
+  const student = await Student.findById(req.params.id).select('-aadhaarNumber');
   if (!student) return res.status(404).json({ message: 'Student not found' });
   res.json({ student });
 }
 
 export async function createStudent(req, res) {
   const student = await Student.create(req.body);
+  student.aadhaarNumber = undefined;
   res.status(201).json({ student });
 }
 
 export async function updateStudent(req, res) {
-  const student = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+  const student = await Student.findById(req.params.id);
   if (!student) return res.status(404).json({ message: 'Student not found' });
+  Object.assign(student, req.body);
+  await student.save();
+  student.aadhaarNumber = undefined;
   res.json({ student });
 }
 
