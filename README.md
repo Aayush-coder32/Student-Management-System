@@ -202,7 +202,7 @@ The health check is available at `GET http://localhost:5000/api/health`. Request
 
 The repository does not define a specific hosting provider or a production deployment pipeline. Adapt these steps to the chosen platform.
 
-## Contributing
+## Contributing :
 
 Contributions are welcome. A practical contribution process:
 
@@ -213,10 +213,10 @@ Contributions are welcome. A practical contribution process:
 
 By submitting a contribution, you confirm that you have the right to submit it and that it may be reviewed and distributed under the project's applicable terms. The repository currently has no `CONTRIBUTING.md` or declared open-source license; see [License](#license) before reusing or redistributing the code.
 
-## Copyright and attribution
+## Copyright and attribution :
 
 The project is associated with **Aditya Yadav**. **Aayush Sharma contributed to Aditya Yadav's project.** This attribution records the contribution and does not by itself imply a transfer of ownership, a joint copyright determination, or a grant of permission to reuse or redistribute the code. Confirm the relevant ownership and third-party asset terms with the rights holders before publishing or reusing the project.
 
-## License
+## License :
 
 **No license is currently specified in this repository.** Until the project owner adds a license, do not assume that the code may be copied, modified, redistributed, or used commercially. The copyright attribution above is not a license. The project owner should choose and add a license file if they intend to grant reuse permissions.
