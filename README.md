@@ -20,7 +20,7 @@ An administrative student management platform built with the MERN stack. EduTrac
 - [Copyright and attribution](#copyright-and-attribution)
 - [License](#license)
 
-## Features
+## Features :
 
 - Admin sign-in using bcrypt password hashing and a JWT stored in an HTTP-only cookie.
 - Role-protected administration routes for student records, attendance, and results.
