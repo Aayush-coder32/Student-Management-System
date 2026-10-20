@@ -182,7 +182,7 @@ All routes are under `/api`. Except for health, authentication, and support subm
 
 The health check is available at `GET http://localhost:5000/api/health`. Request field schemas and detailed query parameter behavior are defined in the backend validators and controllers.
 
-## Security and data handling
+## Security and data handling :
 
 - Keep environment files, database URIs, JWT secrets, and real credentials private. Rotate any secret that has been exposed.
 - Use HTTPS in production and configure secure cookies and exact allowed CORS origins for the deployed frontend.
