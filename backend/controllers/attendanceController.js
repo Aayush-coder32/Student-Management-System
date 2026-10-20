@@ -16,7 +16,9 @@ export async function upsertAttendance(req, res) {
   const student = await Student.findById(req.body.student).select('_id status');
   if (!student) return res.status(404).json({ message: 'Register this student before marking attendance' });
   if (student.status !== 'Active') return res.status(409).json({ message: 'Only active registered students can be marked present' });
-  const record = await Attendance.findOneAndUpdate({ student: req.body.student, date: req.body.date }, req.body, { new: true, upsert: true, runValidators: true, setDefaultsOnInsert: true }).select('-verificationPhoto').populate('student', 'fullName studentId');
+  const attendanceData = { ...req.body };
+  if (attendanceData.status !== 'Present') attendanceData.verificationPhoto = '';
+  const record = await Attendance.findOneAndUpdate({ student: req.body.student, date: req.body.date }, attendanceData, { new: true, upsert: true, runValidators: true, setDefaultsOnInsert: true }).select('-verificationPhoto').populate('student', 'fullName studentId');
   res.status(200).json({ record });
 }
 
