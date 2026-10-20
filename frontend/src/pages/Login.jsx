@@ -34,9 +34,11 @@ export default function Login({ mode = 'login', portal = false, accountType }) {
     if (isSignup && form.password !== form.confirmPassword) { toast.error('Passwords do not match'); return; }
     setBusy(true);
     try {
-      if (isSignup) { await register({ name: form.name, email: form.email, password: form.password, ...(accountType ? { role: accountType } : {}) }); toast.success(`Account created! Welcome, ${roleLabel}.`); }
-      else { await login({ email: form.email, password: form.password, ...(accountType ? { role: accountType } : {}) }); toast.success('Welcome back!'); }
-      navigate('/dashboard');
+      const account = isSignup
+        ? await register({ name: form.name, email: form.email, password: form.password, ...(accountType ? { role: accountType } : {}) })
+        : await login({ email: form.email, password: form.password, ...(accountType ? { role: accountType } : {}) });
+      toast.success(isSignup ? `Account created! Welcome, ${roleLabel}.` : 'Welcome back!');
+      navigate(account.role === 'teacher' ? '/faculty/dashboard' : '/dashboard');
     } catch (error) { toast.error(error.response?.data?.message || `Unable to ${isSignup ? 'create account' : 'sign in'}`); } finally { setBusy(false); }
   };
   return <div className={`login-page ${portal ? 'portal-auth-page' : ''}${accountType ? ` role-auth-page ${accountType === 'teacher' ? 'faculty-auth-page' : 'admin-auth-page'}` : ''}`}>
