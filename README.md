@@ -1,4 +1,4 @@
-# EduTrack — Student Management System
+# EduTrack — Student Management System :
 
 An administrative student management platform built with the MERN stack. EduTrack combines a React dashboard with an Express REST API and MongoDB for student records, attendance, examination results, and dashboard summaries.
 
