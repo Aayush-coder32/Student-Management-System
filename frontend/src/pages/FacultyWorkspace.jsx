@@ -7,12 +7,12 @@ const assignmentKey = 'edutrack.faculty.assignments';
 const readAssignments = () => { try { return JSON.parse(localStorage.getItem(assignmentKey) || '[]'); } catch { return []; } };
 const timetableKey = 'edutrack.faculty.timetable';
 const defaultClasses = [
-  { day: 'Monday', time: '09:00', subject: 'Mathematics', group: 'Grade 10 · A', room: 'Room 204', color: 'blue' },
-  { day: 'Monday', time: '11:00', subject: 'Algebra II', group: 'Grade 11 · B', room: 'Room 108', color: 'violet' },
-  { day: 'Tuesday', time: '10:00', subject: 'Mathematics', group: 'Grade 10 · A', room: 'Room 204', color: 'blue' },
-  { day: 'Wednesday', time: '09:00', subject: 'Geometry', group: 'Grade 9 · C', room: 'Room 212', color: 'amber' },
-  { day: 'Thursday', time: '11:00', subject: 'Algebra II', group: 'Grade 11 · B', room: 'Room 108', color: 'violet' },
-  { day: 'Friday', time: '10:00', subject: 'Mathematics', group: 'Grade 10 · A', room: 'Room 204', color: 'blue' }
+  { id: 'seed-mon-09', day: 'Monday', time: '09:00', subject: 'Mathematics', group: 'Grade 10 · A', room: 'Room 204', color: 'blue' },
+  { id: 'seed-mon-11', day: 'Monday', time: '11:00', subject: 'Algebra II', group: 'Grade 11 · B', room: 'Room 108', color: 'violet' },
+  { id: 'seed-tue-10', day: 'Tuesday', time: '10:00', subject: 'Mathematics', group: 'Grade 10 · A', room: 'Room 204', color: 'blue' },
+  { id: 'seed-wed-09', day: 'Wednesday', time: '09:00', subject: 'Geometry', group: 'Grade 9 · C', room: 'Room 212', color: 'amber' },
+  { id: 'seed-thu-11', day: 'Thursday', time: '11:00', subject: 'Algebra II', group: 'Grade 11 · B', room: 'Room 108', color: 'violet' },
+  { id: 'seed-fri-10', day: 'Friday', time: '10:00', subject: 'Mathematics', group: 'Grade 10 · A', room: 'Room 204', color: 'blue' }
 ];
 const upcoming = [
   { time: '09:00', subject: 'Mathematics', group: 'Grade 10 · A', room: 'Room 204', tone: 'blue' },
