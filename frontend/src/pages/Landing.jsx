@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, GraduationCap, HeartHandshake, LifeBuoy, Send, ShieldCheck } from 'lucide-react';
+import { BookOpen, GraduationCap, HeartHandshake, LifeBuoy, Send, ShieldCheck, Users } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import api from '../services/api';
@@ -32,6 +32,7 @@ export default function Landing() {
         <article><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=760&q=85" alt="Students learning together in a classroom" /><div className="portal-value-copy"><span><BookOpen size={21} /></span><h3>Learning with purpose</h3><p>Build knowledge, curiosity and confidence through a supportive learning community.</p></div></article>
         <article><img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=760&q=85" alt="Students studying together" /><div className="portal-value-copy"><span><HeartHandshake size={21} /></span><h3>Growing together</h3><p>Students are encouraged to discover their strengths and care for one another.</p></div></article>
         <article><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=760&q=85" alt="Student taking part in a classroom activity" /><div className="portal-value-copy"><span><ShieldCheck size={21} /></span><h3>A safe community</h3><p>A welcoming environment helps every learner feel respected, included and ready to thrive.</p></div></article>
+        <article><img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=760&q=85" alt="Students sharing a moment at school" /><div className="portal-value-copy"><span><Users size={21} /></span><h3>About our school</h3><p>We bring students, families and teachers together to create a place where everyone can learn and belong.</p></div></article>
       </div>
     </section>
     <section className="portal-support-section" id="admissions"><div className="portal-support-intro"><span>WE’RE HERE TO HELP</span><h2>Questions or need a hand?</h2><p>Send our school team a message. Choose the form that best fits what you need, and we’ll follow up by email.</p></div><div className="portal-support-grid">
