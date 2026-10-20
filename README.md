@@ -122,7 +122,7 @@ Open the local URL printed by Vite and sign in with the administrator account yo
 | `frontend/` | `npm run build` | Build frontend assets into `frontend/dist/` |
 | `frontend/` | `npm run preview` | Preview the production frontend build locally |
 
-## Environment variables
+## Environment variables:
 
 ### Backend (`backend/.env`)
 
