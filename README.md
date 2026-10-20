@@ -191,7 +191,7 @@ The health check is available at `GET http://localhost:5000/api/health`. Request
 - Review authentication and account-registration behavior, logging, and deployment configuration before public exposure. Application features alone do not guarantee regulatory compliance or security for every deployment.
 - The health endpoint indicates that the API process responded; it is not a complete database or service readiness check.
 
-## Production deployment
+## Production deployment :
 
 1. Provision MongoDB and create a dedicated database user with scoped permissions.
 2. Set production secrets through your hosting provider's secret manager or environment configuration.
