@@ -62,18 +62,18 @@ The frontend uses `VITE_API_URL` to locate the API. The API defaults to port `50
 
 ## Local development :
 
-### 1. Get the code
+### 1. Get the code:
 
 ```bash
 git clone <repository-url>
 cd Student-Management-System
 ```
 
-### 2. Configure the backend
+### 2. Configure the backend :
 
 Create `backend/.env` with the variables described in [Environment variables](#environment-variables). This repository does not currently provide a backend `.env.example`, so create the file manually. Never commit `.env` or paste its secrets into an issue or pull request.
 
-### 3. Install dependencies and start the API
+### 3. Install dependencies and start the API :
 
 ```bash
 cd backend
@@ -83,7 +83,7 @@ npm run dev
 
 The API connects to MongoDB before listening at `http://localhost:5000`. Keep this terminal running.
 
-### 4. Create an administrator
+### 4. Create an administrator:
 
 In a second terminal, from `backend/`:
 
@@ -93,7 +93,7 @@ npm run seed:admin
 
 The script prompts for a name, email, and password, then creates an admin account. Use a unique, strong password.
 
-### 5. Configure and start the frontend
+### 5. Configure and start the frontend :
 
 Create `frontend/.env` if the API is not at the default URL:
 
@@ -111,7 +111,7 @@ npm run dev
 
 Open the local URL printed by Vite and sign in with the administrator account you created.
 
-### Useful commands
+### Useful commands :
 
 | Directory | Command | Purpose |
 | --- | --- | --- |
