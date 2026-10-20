@@ -4,7 +4,7 @@ An administrative student management platform built with the MERN stack. EduTrac
 
 > **Project status:** This repository contains a working application intended for local development and further customization. Review the security, deployment, privacy, and licensing notes before using it with real institutional or student data.
 
-## Contents
+## Contents:
 
 - [Features](#features)
 - [Technology](#technology)
