@@ -54,13 +54,13 @@ MongoDB    Application records and administrator accounts
 
 The frontend uses `VITE_API_URL` to locate the API. The API defaults to port `5000`; the Vite development server typically uses port `5173`.
 
-## Requirements
+## Requirements :
 
 - Node.js 18 or later and npm.
 - A MongoDB database, local or hosted (for example, MongoDB Atlas).
 - Git to clone the repository.
 
-## Local development
+## Local development :
 
 ### 1. Get the code
 
